@@ -1,0 +1,21 @@
+CREATE TABLE [User] (
+    UserROWGUID UNIQUEIDENTIFIER PRIMARY KEY,
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(100),
+    [Login] NVARCHAR(30),
+    [Password] NVARCHAR(30),
+    CreatedAt DATETIME
+);
+
+CREATE TABLE [Photo] (
+    PhotoROWGUID UNIQUEIDENTIFIER PRIMARY KEY,
+    UserROWGUID UNIQUEIDENTIFIER FOREIGN KEY REFERENCES [User](UserROWGUID),
+    Latitude NVARCHAR(20),
+    Longitude NVARCHAR(20),
+    PhotoPath NVARCHAR(200),
+    Title NVARCHAR(100),
+    [Description] NVARCHAR(MAX),
+    CreatedAt DATETIME
+);
+
+
