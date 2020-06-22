@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace PhotoMap
+namespace PhotoMap.Backend
 {
     public class Startup
     {
