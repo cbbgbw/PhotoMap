@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Backend", "PhotoMap.Backend\PhotoMap.Backend.csproj", "{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.MobileApp.Android", "PhotoMap.MobileApp\PhotoMap.MobileApp.Android\PhotoMap.MobileApp.Android.csproj", "{D7104200-E387-4950-A894-A11A292E402A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile.Android", "PhotoMap.Mobile\PhotoMap.Mobile.Android\PhotoMap.Mobile.Android.csproj", "{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.MobileApp", "PhotoMap.MobileApp\PhotoMap.MobileApp\PhotoMap.MobileApp.csproj", "{6F17D184-456C-45A7-B58B-BFA5B45722BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile", "PhotoMap.Mobile\PhotoMap.Mobile\PhotoMap.Mobile.csproj", "{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,16 +19,16 @@ Global
 		{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7104200-E387-4950-A894-A11A292E402A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7104200-E387-4950-A894-A11A292E402A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7104200-E387-4950-A894-A11A292E402A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{D7104200-E387-4950-A894-A11A292E402A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7104200-E387-4950-A894-A11A292E402A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7104200-E387-4950-A894-A11A292E402A}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{6F17D184-456C-45A7-B58B-BFA5B45722BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F17D184-456C-45A7-B58B-BFA5B45722BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F17D184-456C-45A7-B58B-BFA5B45722BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F17D184-456C-45A7-B58B-BFA5B45722BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
