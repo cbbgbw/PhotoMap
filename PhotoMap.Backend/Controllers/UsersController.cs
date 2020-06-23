@@ -21,7 +21,7 @@ using PhotoMap.Backend.Models.Users;
 namespace PhotoMap.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {

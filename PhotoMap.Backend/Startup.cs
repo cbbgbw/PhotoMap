@@ -86,6 +86,7 @@ namespace PhotoMap.Backend
             });
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPhotoService, PhotoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,9 +104,15 @@ namespace PhotoMap.Backend
                  c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
              });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
