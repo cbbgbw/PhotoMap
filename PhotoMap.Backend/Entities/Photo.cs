@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PhotoMap.Models
+namespace PhotoMap.Backend.Entities
 {
     public partial class Photo
     {
@@ -15,6 +15,6 @@ namespace PhotoMap.Models
         public string Description { get; set; }
         public DateTime? CreatedAt { get; set; }
 
-        public virtual User UserRowgu { get; set; }
+        public virtual User User { get; set; }
     }
 }

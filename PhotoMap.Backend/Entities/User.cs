@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PhotoMap.Models
+namespace PhotoMap.Backend.Entities
 {
     public partial class User
     {
