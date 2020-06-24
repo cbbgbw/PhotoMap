@@ -1,4 +1,5 @@
 ﻿using PhotoMap.Backend.Entities;
+using PhotoMap.Backend.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace PhotoMap.Backend.Services
         IEnumerable<Photo> GetAll();
         Photo GetById(Guid id);
         IEnumerable<Photo> GetByUserId(Guid userId);
-        //Photo Insert(Photo photo);
+        Photo Insert(Photo photo);
         //void Update(Photo photo);
         //void Delete(Guid id);
     }
@@ -41,6 +42,17 @@ namespace PhotoMap.Backend.Services
                 .Where(x => x.UserRowguid == userId);
 
             return photos;
+        }
+
+        public Photo Insert(Photo photo)
+        {
+            if (_context.Photos.Any(x => x.PhotoPath == photo.PhotoPath))
+                throw new AppException("Path\"" + photo.PhotoPath + "\" is not unique");
+
+            _context.Photos.Add(photo);
+            _context.SaveChanges();
+
+            return photo;
         }
     }
 }

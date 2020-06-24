@@ -6,7 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
+using PhotoMap.Backend.Entities;
 using PhotoMap.Backend.Helpers;
 using PhotoMap.Backend.Models.Photos;
 using PhotoMap.Backend.Services;
@@ -54,6 +56,23 @@ namespace PhotoMap.Backend.Controllers
             var photos = _photoService.GetByUserId(userid);
             var model = _mapper.Map<IList<PhotoResponseModel>>(photos);
             return Ok(model);
+        }
+
+        [HttpPost("insert")]
+        public IActionResult Insert([FromBody]PhotoInsertModel model)
+        {
+            var photo = _mapper.Map<Photo>(model);
+
+            try
+            {
+                //Insert photo
+                _photoService.Insert(photo);
+                return Ok();
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }
