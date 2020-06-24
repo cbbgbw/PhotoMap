@@ -2,6 +2,6 @@
 {
     public class Contstants
     {
-        public string PostPhotosUrl = ""
+        public string PostPhotosUrl = "";
     }
 }
