@@ -14,7 +14,7 @@ namespace PhotoMap.Mobile.Services
     public class RestService
     {
         private HttpClient client;
-        private string _token;
+        public UserAuthResponse User;
 
         public RestService()
         {
@@ -41,13 +41,12 @@ namespace PhotoMap.Mobile.Services
             User authUser = new User("adam.nowak","aaaa");
             string json = JsonConvert.SerializeObject(authUser);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            
-            HttpResponseMessage response = null;
-            response = await client.PostAsync(uri, content);
+
+            var response = await client.PostAsync(uri, content);
             if (response.IsSuccessStatusCode)
             {
                 string respondContent = await response.Content.ReadAsStringAsync();
-                UserAuthResponse user = JsonConvert.DeserializeObject<UserAuthResponse>(respondContent);
+                User = JsonConvert.DeserializeObject<UserAuthResponse>(respondContent);
             }
         }
     }

@@ -63,7 +63,7 @@ namespace PhotoMap.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
+            var blobAzureKey = _configuration.GetConnectionString("AzureBlobConnectionString");
             //Returning user data and created token
             return Ok(
                 new UserAuthResponse(
@@ -71,7 +71,8 @@ namespace PhotoMap.Controllers
                     user.FirstName,
                     user.LastName,
                     user.Login,
-                    tokenString)
+                    tokenString,
+                    blobAzureKey)
                 );
         }
 
