@@ -20,18 +20,15 @@ namespace PhotoMap.Backend.Controllers
     [ApiController]
     public class PhotoController : ControllerBase
     {
-        private IPhotoService _photoService;
-        private IMapper _mapper;
-        private readonly AppSettings _appSettings;
+        private readonly IPhotoService _photoService;
+        private readonly IMapper _mapper;
 
         public PhotoController(
             IPhotoService photoService,
-            IMapper mapper,
-            IOptions<AppSettings> appSettings)
+            IMapper mapper)
         {
             _photoService = photoService;
             _mapper = mapper;
-            _appSettings = appSettings.Value;
         }
 
         [HttpGet]

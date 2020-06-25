@@ -16,6 +16,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 using PhotoMap.Backend.Models.Users;
 
 namespace PhotoMap.Controllers
@@ -27,16 +28,16 @@ namespace PhotoMap.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly AppSettings _appSettings;
+        private readonly IConfiguration _configuration;
 
         public UsersController(
             IUserService userService,
             IMapper mapper,
-            IOptions<AppSettings> appSettings)
+            IConfiguration configuration)
         {
             _userService = userService;
             _mapper = mapper;
-            _appSettings = appSettings.Value;
+            _configuration = configuration;
         }
 
         [AllowAnonymous]
@@ -49,7 +50,7 @@ namespace PhotoMap.Controllers
                 return BadRequest(new { message = "Login or password is incorrect" });
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_configuration["JWTSecret"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
