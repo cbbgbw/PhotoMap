@@ -38,8 +38,7 @@ namespace PhotoMap.Backend
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDbContext<PhotoMapDbContext>(options =>
-                options.UseSqlServer(Configuration.GetSection("ConnectionString").Value)
-                );
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 
             services.AddSwaggerGen(c =>
             {
@@ -48,7 +47,7 @@ namespace PhotoMap.Backend
 
 
             //JWT configuring
-            var jwtSecret= Configuration.GetSection("JWTSecret").Value;
+            var jwtSecret = Configuration.GetSection("JWTSecret").Value;
             var key = Encoding.ASCII.GetBytes(jwtSecret);
             services.AddAuthentication(x =>
             {
