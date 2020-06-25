@@ -25,8 +25,8 @@ namespace PhotoMap.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
-        private IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public UsersController(
@@ -66,9 +66,9 @@ namespace PhotoMap.Controllers
             return Ok(new
             {
                 UserROWGUID = user.UserRowguid,
-                FirstName = user.FirstName,
+                user.FirstName,
                 Lastname = user.LastName,
-                Login = user.Login,
+                user.Login,
                 Token = tokenString
             });
         }
