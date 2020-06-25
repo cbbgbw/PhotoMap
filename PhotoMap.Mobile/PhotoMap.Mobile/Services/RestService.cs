@@ -25,8 +25,12 @@ namespace PhotoMap.Mobile.Services
         {
             Uri uri = new Uri(AppConstants.PostPhotoUrl);
 
-            client.DefaultRequestHeaders.Authorization
-                = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+            string json = JsonConvert.SerializeObject(photo);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = null;
+            response = await client.PostAsync(uri, content);
+            string respondContent = await response.Content.ReadAsStringAsync();
             //HttpResponseMessage response = await client.PostAsync();
             return Guid.Empty;
         }
@@ -48,6 +52,8 @@ namespace PhotoMap.Mobile.Services
                 string respondContent = await response.Content.ReadAsStringAsync();
                 User = JsonConvert.DeserializeObject<UserAuthResponse>(respondContent);
             }
+            client.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", User.Token);
         }
     }
 }

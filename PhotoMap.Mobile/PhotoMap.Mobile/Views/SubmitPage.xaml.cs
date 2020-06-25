@@ -14,14 +14,12 @@ namespace PhotoMap.Mobile.Views
     public partial class SubmitPage : ContentPage
     {
         private readonly MediaFile _photoFile;
-        private PhotoInsertModel photoInsertModel;
         private Location _location;
 
         public RestService DataStore => DependencyService.Get<RestService>();
 
         public SubmitPage(MediaFile photoFile)
         {
-            photoInsertModel = new PhotoInsertModel();
             _photoFile = photoFile;
             InitializeComponent();
 
@@ -37,16 +35,16 @@ namespace PhotoMap.Mobile.Views
                 try
                 {
                     var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                    var _location = await Geolocation.GetLocationAsync(request);
+                    _location = await Geolocation.GetLocationAsync(request);
 
                     if (_location != null)
                     {
-                        LocalisationLabel.Text = LocalisationLabel.Text.Replace("checking",
+                        LocationLabel.Text = LocationLabel.Text.Replace("checking",
                             $"Latitude: {_location.Latitude}, Longitude: {_location.Longitude}, Altitude: {_location.Altitude}");
                     }
                     else
                     {
-                        LocalisationLabel.Text = LocalisationLabel.Text.Replace("checking", "Wystąpił błąd");
+                        LocationLabel.Text = LocationLabel.Text.Replace("checking", "Wystąpił błąd");
                     }
                 }
                 catch (FeatureNotSupportedException fnsEx)
@@ -71,20 +69,23 @@ namespace PhotoMap.Mobile.Views
 
         async void ArtUploader_Clicked(object sender, EventArgs args)
         {
+            PhotoInsertModel model = new PhotoInsertModel{PhotoRowguid = Guid.NewGuid()};
             await DataStore.PostAuthUserAsync();
             var account = CloudStorageAccount.Parse(DataStore.User.BlobAzureKey);
             var client = account.CreateCloudBlobClient();
             var container = client.GetContainerReference("photomapcontainer");
             await container.CreateIfNotExistsAsync();
-            var name = Guid.NewGuid().ToString();
-            var blockBlob = container.GetBlockBlobReference($"{name}.png");
+            var blockBlob = container.GetBlockBlobReference($"{model.PhotoRowguid}.png");
 
             await blockBlob.UploadFromStreamAsync(_photoFile.GetStream());
 
-            photoInsertModel.Latitude = _location.Latitude.ToString();
-            photoInsertModel.Longitude = _location.Longitude.ToString();
-            photoInsertModel.PhotoPath = blockBlob.Uri.OriginalString;
-            await DataStore.PostPhotoAsync(photoInsertModel);
+            model.Latitude = _location.Latitude.ToString();
+            model.Title = NameText.Text;
+            model.Description = DescText.Text;
+            model.Longitude = _location.Longitude.ToString();
+            model.PhotoPath = blockBlob.Uri.OriginalString;
+            model.UserRowguid = DataStore.User.UserROWGUID;
+            await DataStore.PostPhotoAsync(model);
         }
     }
 }

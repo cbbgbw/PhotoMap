@@ -4,20 +4,7 @@ namespace PhotoMap.Dto.Models
 {
     public class PhotoInsertModel
     {
-        public PhotoInsertModel(string latitude, string longitude, string photoPath, string title, string description)
-        {
-            Latitude = latitude;
-            Longitude = longitude;
-            PhotoPath = photoPath;
-            Title = title;
-            Description = description;
-        }
-
-        public PhotoInsertModel()
-        {
-        }
-
-        public Guid PhotoRowguid => Guid.NewGuid();
+        public Guid PhotoRowguid { get; set; }
         public Guid? UserRowguid { get; set; }
 
         public string Latitude { get; set; }
