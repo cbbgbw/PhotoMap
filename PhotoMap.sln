@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Backend", "PhotoMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile.Android", "PhotoMap.Mobile\PhotoMap.Mobile.Android\PhotoMap.Mobile.Android.csproj", "{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile", "PhotoMap.Mobile\PhotoMap.Mobile\PhotoMap.Mobile.csproj", "{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Mobile", "PhotoMap.Mobile\PhotoMap.Mobile\PhotoMap.Mobile.csproj", "{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Common", "PhotoMap.Common\PhotoMap.Common.csproj", "{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

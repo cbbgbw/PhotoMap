@@ -13,7 +13,7 @@
                 </Grid.RowDefinitions>
 
                 <Image x:Name="PhotoImage" />
-                <Button x:Name="CameraButton" Text="Take Photo" Grid.Row="1" />
+                <Button x:Name="CameraButton" Text="Take Photo"  Grid.Row="1" />
             </Grid>
     </ContentPage.Content>
 </ContentPage>

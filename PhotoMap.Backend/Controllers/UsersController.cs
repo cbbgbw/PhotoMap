@@ -2,122 +2,133 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PhotoMap.Models;
+using PhotoMap.Backend.Services;
+using PhotoMap.Backend.Entities;
+using AutoMapper;
+using PhotoMap.Backend.Helpers;
+using Microsoft.Extensions.Options;
+using PhotoMap.Backend.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using PhotoMap.Backend.Models.Users;
 
 namespace PhotoMap.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly PhotoMapDbContext _context;
+        private IUserService _userService;
+        private IMapper _mapper;
+        private readonly AppSettings _appSettings;
 
-        public UsersController(PhotoMapDbContext context)
+        public UsersController(
+            IUserService userService,
+            IMapper mapper,
+            IOptions<AppSettings> appSettings)
         {
-            _context = context;
+            _userService = userService;
+            _mapper = mapper;
+            _appSettings = appSettings.Value;
         }
 
-        // GET: api/Users
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        {
+            var user = _userService.Authenticate(model.Login, model.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Login or password is incorrect" });
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.UserRowguid.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            //Returning user data and created token
+            return Ok(new
+            {
+                UserROWGUID = user.UserRowguid,
+                FirstName = user.FirstName,
+                Lastname = user.LastName,
+                Login = user.Login,
+                Token = tokenString
+            });
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody]UserRegisterModel model)
+        {
+            //Mapping model to entity
+            var user = _mapper.Map<User>(model);
+            try
+            {
+                _userService.Create(user, model.Password);
+                return Ok();
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public IActionResult GetAll()
         {
-            return await _context.Users.ToListAsync();
+            var users = _userService.GetAll();
+            var model = _mapper.Map<IList<UserResponseModel>>(users);
+            return Ok(model);
         }
 
-        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(Guid id)
+        public IActionResult GetById(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = _userService.GetById(id);
+            var model = _mapper.Map<UserResponseModel>(user);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
+            return Ok(model);
         }
 
-        // PUT: api/Users/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public IActionResult Update(Guid id, [FromBody]UserUpdateModel model)
         {
-            if (id != user.UserRowguid)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
+            var user = _mapper.Map<User>(model);
+            user.UserRowguid = id;
 
             try
             {
-                await _context.SaveChangesAsync();
+                _userService.Update(user, model.Password);
+                return Ok();
             }
-            catch (DbUpdateConcurrencyException)
+            catch(AppException ex)
             {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(new { message = ex.Message });
             }
-
-            return NoContent();
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.Users.Add(user);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (UserExists(user.UserRowguid))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetUser", new { id = user.UserRowguid }, user);
-        }
-
-        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(Guid id)
+        public IActionResult Delete(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return user;
-        }
-
-        private bool UserExists(Guid id)
-        {
-            return _context.Users.Any(e => e.UserRowguid == id);
+            _userService.Delete(id);
+            return Ok();
         }
     }
 }
