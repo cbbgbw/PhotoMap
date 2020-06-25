@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage;
+using PhotoMap.Mobile.Services;
 using Plugin.Media.Abstractions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -11,8 +12,10 @@ namespace PhotoMap.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SubmitPage : ContentPage
     {
-        private MediaFile _photoFile;
+        private readonly MediaFile _photoFile;
         private Location _location;
+        public RestService DataStore => DependencyService.Get<RestService>();
+
         public SubmitPage(MediaFile photoFile)
         {
             _photoFile = photoFile;
@@ -21,8 +24,6 @@ namespace PhotoMap.Mobile.Views
             PhotoImage.Source = ImageSource.FromStream(() => _photoFile.GetStream());
 
             ArtUploader.Clicked += ArtUploader_Clicked;
-
-
         }
 
         protected override async void OnAppearing()
@@ -66,15 +67,16 @@ namespace PhotoMap.Mobile.Views
 
         async void ArtUploader_Clicked(object sender, EventArgs args)
         {
-            var account = CloudStorageAccount.Parse("");
-            var client = account.CreateCloudBlobClient();
-            var container = client.GetContainerReference("photomapcontainer");
-            await container.CreateIfNotExistsAsync();
-            var name = Guid.NewGuid().ToString();
-            var blockBlob = container.GetBlockBlobReference($"{name}.png");
+            await DataStore.PostAuthUserAsync();
+            //var account = CloudStorageAccount.Parse("");
+            //var client = account.CreateCloudBlobClient();
+            //var container = client.GetContainerReference("photomapcontainer");
+            //await container.CreateIfNotExistsAsync();
+            //var name = Guid.NewGuid().ToString();
+            //var blockBlob = container.GetBlockBlobReference($"{name}.png");
 
-            await blockBlob.UploadFromStreamAsync(_photoFile.GetStream());
-            var URL = blockBlob.Uri.OriginalString;
+            //await blockBlob.UploadFromStreamAsync(_photoFile.GetStream());
+            //var URL = blockBlob.Uri.OriginalString;
         }
     }
 }

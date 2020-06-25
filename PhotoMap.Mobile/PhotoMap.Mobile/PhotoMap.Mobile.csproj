@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PhotoMap.Common\PhotoMap.Common.csproj" />
+    <ProjectReference Include="..\..\PhotoMap.Common\PhotoMap.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PhotoMap.DTO.Models
+namespace PhotoMap.Dto.Models
 {
     public class PhotoInsertModel
     {

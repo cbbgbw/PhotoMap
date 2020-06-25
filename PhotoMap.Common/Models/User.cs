@@ -1,4 +1,4 @@
-﻿namespace PhotoMap.DTO.Models
+﻿namespace PhotoMap.Dto.Models
 {
     public class User
     {
