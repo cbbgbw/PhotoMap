@@ -58,6 +58,10 @@ namespace PhotoMap.Backend.Controllers
         [HttpPost("insert")]
         public IActionResult Insert([FromBody]PhotoInsertModel model)
         {
+            if (model.PhotoRowguid == Guid.Empty){
+                model.PhotoRowguid = Guid.NewGuid();
+            }
+
             var photo = _mapper.Map<Photo>(model);
 
             try

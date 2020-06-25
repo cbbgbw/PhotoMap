@@ -11,10 +11,10 @@
                 <Label Text="Your photo" FontSize="Medium" />
                 <Image x:Name="PhotoImage" />
                 <Label Text="Name it:" FontSize="Medium" />
-                <Entry Text="{Binding PhotoMapItem.Text}" d:Placeholder="River nearby" FontSize="Small" />
-                <Label Text="Tell more about it:" FontSize="Medium" />
-                <Editor Text="{Binding PhotoMapItem.Description}" d:Placeholder="My photo pictures river nearby my house" FontSize="Small" Margin="0" />
-                <Label x:Name="LocalisationLabel" Text="Photo taken in: checking" FontSize="Medium" />
+                <Entry x:Name="NameText" d:Placeholder="River nearby" FontSize="Small" />
+                <Label Text="Tell something it:" FontSize="Medium" />
+                <Editor x:Name="DescText" d:Placeholder="My photo pictures river nearby my house" FontSize="Small" Margin="0" />
+                <Label x:Name="LocationLabel" Text="Photo taken in: checking" FontSize="Medium" />
                 <Button Text="Upload this art" x:Name="ArtUploader"></Button>
             </StackLayout>
         </ScrollView>

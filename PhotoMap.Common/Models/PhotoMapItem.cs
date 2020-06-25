@@ -1,4 +1,4 @@
-﻿namespace PhotoMap.Common.Models
+﻿namespace PhotoMap.Dto.Models
 {
     public class Class1
     {

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhotoMap.Backend.Services;
-using PhotoMap.Backend.Entities;
 using AutoMapper;
 using PhotoMap.Backend.Helpers;
 using Microsoft.Extensions.Options;
@@ -18,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using PhotoMap.Backend.Models.Users;
+using PhotoMap.Dto.Models;
+using User = PhotoMap.Backend.Entities.User;
 
 namespace PhotoMap.Controllers
 {
@@ -42,7 +43,7 @@ namespace PhotoMap.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
             var user = _userService.Authenticate(model.Login, model.Password);
 
@@ -62,21 +63,22 @@ namespace PhotoMap.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
+            var blobAzureKey = _configuration.GetConnectionString("AzureBlobConnectionString");
             //Returning user data and created token
-            return Ok(new
-            {
-                UserROWGUID = user.UserRowguid,
-                user.FirstName,
-                Lastname = user.LastName,
-                user.Login,
-                Token = tokenString
-            });
+            return Ok(
+                new UserAuthResponse(
+                    user.UserRowguid,
+                    user.FirstName,
+                    user.LastName,
+                    user.Login,
+                    tokenString,
+                    blobAzureKey)
+                );
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]UserRegisterModel model)
+        public IActionResult Register([FromBody] UserRegisterModel model)
         {
             //Mapping model to entity
             var user = _mapper.Map<User>(model);
@@ -85,7 +87,7 @@ namespace PhotoMap.Controllers
                 _userService.Create(user, model.Password);
                 return Ok();
             }
-            catch(AppException ex)
+            catch (AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
@@ -109,7 +111,7 @@ namespace PhotoMap.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, [FromBody]UserUpdateModel model)
+        public IActionResult Update(Guid id, [FromBody] UserUpdateModel model)
         {
             var user = _mapper.Map<User>(model);
             user.UserRowguid = id;
@@ -119,7 +121,7 @@ namespace PhotoMap.Controllers
                 _userService.Update(user, model.Password);
                 return Ok();
             }
-            catch(AppException ex)
+            catch (AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }

@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace PhotoMap.DTO.Models
+namespace PhotoMap.Dto.Models
 {
     public class PhotoInsertModel
     {
-        public Guid PhotoRowguid => Guid.NewGuid();
+        public Guid PhotoRowguid { get; set; }
         public Guid? UserRowguid { get; set; }
 
         public string Latitude { get; set; }

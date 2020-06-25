@@ -1,4 +1,5 @@
 ﻿using System;
+using PhotoMap.Dto.Constants;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using PhotoMap.Mobile.Services;
@@ -14,6 +15,7 @@ namespace PhotoMap.Mobile
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<RestService>();
             MainPage = new MainPage();
         }
 

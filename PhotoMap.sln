@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile.Android", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Mobile", "PhotoMap.Mobile\PhotoMap.Mobile\PhotoMap.Mobile.csproj", "{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Common", "PhotoMap.Common\PhotoMap.Common.csproj", "{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Dto", "PhotoMap.Common\PhotoMap.Dto.csproj", "{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

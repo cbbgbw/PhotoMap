@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage;
+using PhotoMap.Dto.Models;
+using PhotoMap.Mobile.Services;
 using Plugin.Media.Abstractions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -11,8 +13,11 @@ namespace PhotoMap.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SubmitPage : ContentPage
     {
-        private MediaFile _photoFile;
+        private readonly MediaFile _photoFile;
         private Location _location;
+
+        public RestService DataStore => DependencyService.Get<RestService>();
+
         public SubmitPage(MediaFile photoFile)
         {
             _photoFile = photoFile;
@@ -21,8 +26,6 @@ namespace PhotoMap.Mobile.Views
             PhotoImage.Source = ImageSource.FromStream(() => _photoFile.GetStream());
 
             ArtUploader.Clicked += ArtUploader_Clicked;
-
-
         }
 
         protected override async void OnAppearing()
@@ -32,16 +35,16 @@ namespace PhotoMap.Mobile.Views
                 try
                 {
                     var request = new GeolocationRequest(GeolocationAccuracy.Best);
-                    var location = await Geolocation.GetLocationAsync(request);
+                    _location = await Geolocation.GetLocationAsync(request);
 
-                    if (location != null)
+                    if (_location != null)
                     {
-                        LocalisationLabel.Text = LocalisationLabel.Text.Replace("checking",
-                            $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                        LocationLabel.Text = LocationLabel.Text.Replace("checking",
+                            $"Latitude: {_location.Latitude}, Longitude: {_location.Longitude}, Altitude: {_location.Altitude}");
                     }
                     else
                     {
-                        LocalisationLabel.Text = LocalisationLabel.Text.Replace("checking", "Wystąpił błąd");
+                        LocationLabel.Text = LocationLabel.Text.Replace("checking", "Wystąpił błąd");
                     }
                 }
                 catch (FeatureNotSupportedException fnsEx)
@@ -66,15 +69,23 @@ namespace PhotoMap.Mobile.Views
 
         async void ArtUploader_Clicked(object sender, EventArgs args)
         {
-            var account = CloudStorageAccount.Parse("");
+            PhotoInsertModel model = new PhotoInsertModel{PhotoRowguid = Guid.NewGuid()};
+            await DataStore.PostAuthUserAsync();
+            var account = CloudStorageAccount.Parse(DataStore.User.BlobAzureKey);
             var client = account.CreateCloudBlobClient();
             var container = client.GetContainerReference("photomapcontainer");
             await container.CreateIfNotExistsAsync();
-            var name = Guid.NewGuid().ToString();
-            var blockBlob = container.GetBlockBlobReference($"{name}.png");
+            var blockBlob = container.GetBlockBlobReference($"{model.PhotoRowguid}.png");
 
             await blockBlob.UploadFromStreamAsync(_photoFile.GetStream());
-            var URL = blockBlob.Uri.OriginalString;
+
+            model.Latitude = _location.Latitude.ToString();
+            model.Title = NameText.Text;
+            model.Description = DescText.Text;
+            model.Longitude = _location.Longitude.ToString();
+            model.PhotoPath = blockBlob.Uri.OriginalString;
+            model.UserRowguid = DataStore.User.UserROWGUID;
+            await DataStore.PostPhotoAsync(model);
         }
     }
 }

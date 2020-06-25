@@ -8,7 +8,7 @@ namespace PhotoMap.Backend.Models.Photos
 {
     public class PhotoInsertModel
     {
-        public Guid PhotoRowguid => Guid.NewGuid();
+        public Guid PhotoRowguid { get; set; }
         public Guid? UserRowguid { get; set; }
 
         [StringLength(20, ErrorMessage = "Latitude can not be more than 20")]
