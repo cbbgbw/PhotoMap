@@ -47,7 +47,7 @@ namespace PhotoMap.Backend
 
 
             //JWT configuring
-            var jwtSecret = Configuration.GetSection("JWTSecret").Value;
+            var jwtSecret = Configuration["JWTSecret"];
             var key = Encoding.ASCII.GetBytes(jwtSecret);
             services.AddAuthentication(x =>
             {
