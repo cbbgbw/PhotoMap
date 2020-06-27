@@ -40,7 +40,8 @@ namespace PhotoMap.Mobile.Views
                     if (_location != null)
                     {
                         LocationLabel.Text = LocationLabel.Text.Replace("checking",
-                            $"Latitude: {_location.Latitude}, Longitude: {_location.Longitude}, Altitude: {_location.Altitude}");
+                            $"Latitude: {_location.Latitude}, Longitude: {_location.Longitude}");
+                        ArtUploader.IsEnabled = true;
                     }
                     else
                     {
