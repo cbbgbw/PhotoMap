@@ -18,7 +18,7 @@ namespace PhotoMap.Mobile.Views
         {
             var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
-                PhotoSize = PhotoSize.Medium,
+                PhotoSize = PhotoSize.Small,
             });
 
             await Navigation.PushAsync(new SubmitPage(photo));
