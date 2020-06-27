@@ -28,7 +28,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
         </NavigationPage>
-        <NavigationPage Title="Camera">
+        <NavigationPage x:Name="CameraPage" Title="Camera">
             <x:Arguments>
                 <views:CameraPage />
             </x:Arguments>
