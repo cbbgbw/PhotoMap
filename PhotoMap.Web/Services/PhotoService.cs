@@ -55,7 +55,6 @@ namespace PhotoMap.Backend.Services
 
             return photo;
         }
-
         public void Update(Photo photoParam)
         {
             var photo = _context.Photos.Find(photoParam.PhotoRowguid);

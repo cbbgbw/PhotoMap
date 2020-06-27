@@ -1,8 +1,12 @@
 import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { Map, Marker, TileLayer } from "react-leaflet";
+import L from "leaflet";
 import { AuthUser, GetPhotos } from "./Scripts/requests";
+import SvgPinIcon from "./assets/camera.svg";
+import Sidebar from "./Components/Sidebar";
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,7 +14,10 @@ export default class App extends React.Component {
 
     this.state = {
       isLoading: true,
+      isPinClicked: false,
+      isAnimationOut: false,
       photos: null,
+      photoPrinted: null,
     };
   }
 
@@ -27,21 +34,35 @@ export default class App extends React.Component {
     const { photos } = this.state;
     return (
       <ul>
-        {photos.map((photo) => (
-          <Marker
-            key={photo.photoROWGUID}
-            position={[
-              photo.latitude.replace(",", "."), //temporary
-              photo.longitude.replace(",", "."),
-            ]}
-          >
-            <Popup>
-              {photo.title}
-              <br />
-              {photo.description}
-            </Popup>
-          </Marker>
-        ))}
+        {photos.map((photo) => {
+          let icon = L.icon({
+            iconUrl: SvgPinIcon,
+            className: "pinIcon",
+            iconSize: [255, 55],
+          });
+          return (
+            <Marker
+              key={photo.photoROWGUID}
+              position={[
+                photo.latitude, //temporary
+                photo.longitude,
+              ]}
+              icon={icon}
+              onclick={() => {
+                if (photo !== this.state.photoPrinted) {
+                  this.setState({
+                    photoPrinted: photo,
+                  });
+                } else {
+                  this.setState({
+                    isPinClicked: !this.state.isPinClicked,
+                    photoPrinted: photo,
+                  });
+                }
+              }}
+            ></Marker>
+          );
+        })}
       </ul>
     );
   };
@@ -57,6 +78,10 @@ export default class App extends React.Component {
           />
           {this.state.photos !== null ? this.printMarkers() : null}
         </Map>
+        <Sidebar
+          isVisible={this.state.isPinClicked}
+          photo={this.state.photoPrinted}
+        />
       </div>
     );
   }
