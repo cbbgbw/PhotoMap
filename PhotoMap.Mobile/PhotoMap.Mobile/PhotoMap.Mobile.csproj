@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\PhotoMap.Common\PhotoMap.Dto.csproj" />
+    <ProjectReference Include="..\..\PhotoMap.Dto\PhotoMap.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>

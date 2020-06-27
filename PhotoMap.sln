@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Backend", "PhotoMap.Backend\PhotoMap.Backend.csproj", "{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Web", "PhotoMap.Web\PhotoMap.Web.csproj", "{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile.Android", "PhotoMap.Mobile\PhotoMap.Mobile.Android\PhotoMap.Mobile.Android.csproj", "{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Mobile", "PhotoMap.Mobile\PhotoMap.Mobile\PhotoMap.Mobile.csproj", "{13B407C1-E0E4-4BCE-BCAA-B9A63BB65143}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Dto", "PhotoMap.Common\PhotoMap.Dto.csproj", "{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Dto", "PhotoMap.Dto\PhotoMap.Dto.csproj", "{F5E2A6AA-7F50-47F2-9B6B-505284A53D98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
