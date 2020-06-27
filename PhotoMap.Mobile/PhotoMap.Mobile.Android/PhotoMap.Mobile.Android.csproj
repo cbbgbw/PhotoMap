@@ -95,6 +95,10 @@
     <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\PhotoMap.Dto\PhotoMap.Dto.csproj">
+      <Project>{f5e2a6aa-7f50-47f2-9b6b-505284a53d98}</Project>
+      <Name>PhotoMap.Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhotoMap.Mobile\PhotoMap.Mobile.csproj">
       <Project>{4893E457-3ACB-42E8-B531-5DF471D10101}</Project>
       <Name>PhotoMap.Mobile</Name>
