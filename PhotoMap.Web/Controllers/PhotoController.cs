@@ -62,8 +62,17 @@ namespace PhotoMap.Backend.Controllers
                 model.PhotoRowguid = Guid.NewGuid();
             }
 
-            var photo = _mapper.Map<Photo>(model);
+            if(model.Latitude.Contains(','))
+            {
+                model.Latitude.Replace(',', '.');
+            }
+            if (model.Longitude.Contains(','))
+            {
+                model.Longitude.Replace(',', '.');
+            }
 
+            var photo = _mapper.Map<Photo>(model);
+            
             try
             {
                 //Insert photo
@@ -74,6 +83,37 @@ namespace PhotoMap.Backend.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        [HttpPut("{photoid}")]
+        public IActionResult Update(Guid photoid, [FromBody]PhotoUpdateModel model)
+        {
+            var photo = _mapper.Map<Photo>(model);
+            photo.PhotoRowguid = photoid;
+
+            try
+            {
+                _photoService.Update(photo);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{photoid}")]
+        public IActionResult Delete(Guid photoid)
+        {
+            _photoService.Delete(photoid);
+            return Ok();
+        }
+
+        [HttpGet("count")]
+        public IActionResult Count()
+        {
+            var counter = _photoService.Count();
+            return Ok(counter);
         }
     }
 }

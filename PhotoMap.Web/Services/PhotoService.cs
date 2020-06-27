@@ -13,8 +13,9 @@ namespace PhotoMap.Backend.Services
         Photo GetById(Guid id);
         IEnumerable<Photo> GetByUserId(Guid userId);
         Photo Insert(Photo photo);
-        //void Update(Photo photo);
-        //void Delete(Guid id);
+        void Update(Photo photo);
+        void Delete(Guid id);
+        int Count();
     }
 
     public class PhotoService : IPhotoService
@@ -53,6 +54,45 @@ namespace PhotoMap.Backend.Services
             _context.SaveChanges();
 
             return photo;
+        }
+
+        public void Update(Photo photoParam)
+        {
+            var photo = _context.Photos.Find(photoParam.PhotoRowguid);
+
+            if (photo == null)
+                throw new AppException("Photo not found");
+
+            //Update photo title
+            if (!string.IsNullOrWhiteSpace(photoParam.Title))
+            {
+                photo.Title = photoParam.Title;
+            }
+
+            //Update photo description
+            if (!string.IsNullOrWhiteSpace(photoParam.Description))
+            {
+                photo.Description = photoParam.Description;
+            }
+
+            _context.Photos.Update(photo);
+            _context.SaveChanges();
+        }
+
+        public void Delete(Guid id)
+        {
+            var photo = _context.Photos.Find(id);
+            if (photo != null)
+            {
+                _context.Photos.Remove(photo);
+                _context.SaveChanges();
+            }
+        }
+
+        public int Count()
+        {
+            var countPhotos = _context.Photos.Count<Photo>();
+            return countPhotos;
         }
     }
 }
