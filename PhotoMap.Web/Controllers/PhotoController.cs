@@ -64,11 +64,11 @@ namespace PhotoMap.Backend.Controllers
 
             if(model.Latitude.Contains(','))
             {
-                model.Latitude.Replace(',', '.');
+                model.Latitude = model.Latitude.Replace(',', '.');
             }
             if (model.Longitude.Contains(','))
             {
-                model.Longitude.Replace(',', '.');
+                model.Longitude = model.Longitude.Replace(',', '.');
             }
 
             var photo = _mapper.Map<Photo>(model);
