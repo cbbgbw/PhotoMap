@@ -21,6 +21,7 @@ namespace PhotoMap.Backend.Helpers
             //Photo
             CreateMap<Photo, PhotoResponseModel>();
             CreateMap<PhotoInsertModel, Photo>();
+            CreateMap<PhotoUpdateModel, Photo>();
         }
     }
 }

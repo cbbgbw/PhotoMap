@@ -7,6 +7,7 @@ import { AuthUser, GetPhotos } from "./Scripts/requests";
 import SvgPinIcon from "./assets/camera.svg";
 import Sidebar from "./Components/Sidebar";
 
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
