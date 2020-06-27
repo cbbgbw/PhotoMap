@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Web", "PhotoMap.Backend\PhotoMap.Web.csproj", "{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoMap.Web", "PhotoMap.Web\PhotoMap.Web.csproj", "{1F96ED24-89E2-4BB2-ADBB-FDE2B1D53E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoMap.Mobile.Android", "PhotoMap.Mobile\PhotoMap.Mobile.Android\PhotoMap.Mobile.Android.csproj", "{AC25DE50-6AB4-4B28-BEEC-55B7B0A4BA40}"
 EndProject
