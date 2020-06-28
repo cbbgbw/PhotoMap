@@ -70,7 +70,9 @@ namespace PhotoMap.Mobile.Views
 
         async void ArtUploader_Clicked(object sender, EventArgs args)
         {
-            PhotoInsertModel model = new PhotoInsertModel{PhotoRowguid = Guid.NewGuid()};
+            ArtUploader.IsEnabled = false;
+            ArtUploader.Text = "Uploading...";
+            PhotoInsertModel model = new PhotoInsertModel { PhotoRowguid = Guid.NewGuid() };
             await DataStore.PostAuthUserAsync();
             var account = CloudStorageAccount.Parse(DataStore.User.BlobAzureKey);
             var client = account.CreateCloudBlobClient();
@@ -79,7 +81,6 @@ namespace PhotoMap.Mobile.Views
             var blockBlob = container.GetBlockBlobReference($"{model.PhotoRowguid}.png");
 
             await blockBlob.UploadFromStreamAsync(_photoFile.GetStream());
-
             model.Latitude = _location.Latitude.ToString();
             model.Title = NameText.Text;
             model.Description = DescText.Text;
@@ -87,6 +88,8 @@ namespace PhotoMap.Mobile.Views
             model.PhotoPath = blockBlob.Uri.OriginalString;
             model.UserRowguid = DataStore.User.UserROWGUID;
             await DataStore.PostPhotoAsync(model);
+            ArtUploader.Text = "Done!";
+            await Navigation.PopAsync(true);
         }
     }
 }

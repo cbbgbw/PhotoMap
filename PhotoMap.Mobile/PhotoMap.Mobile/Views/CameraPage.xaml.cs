@@ -18,8 +18,11 @@ namespace PhotoMap.Mobile.Views
         {
             var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
-                PhotoSize = PhotoSize.Small,
-            });
+                
+                PhotoSize = PhotoSize.Medium,
+                CompressionQuality = 90,
+                SaveToAlbum = true,
+                });
 
             await Navigation.PushAsync(new SubmitPage(photo));
         }
