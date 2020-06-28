@@ -77,7 +77,7 @@ namespace PhotoMap.Backend.Controllers
             {
                 //Insert photo
                 _photoService.Insert(photo);
-                return Ok();
+                return Ok(photo.PhotoRowguid);
             }
             catch(AppException ex)
             {

@@ -14,7 +14,6 @@ namespace PhotoMap.Mobile
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             DependencyService.Register<RestService>();
             MainPage = new MainPage();
         }

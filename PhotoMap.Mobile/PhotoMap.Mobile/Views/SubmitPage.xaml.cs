@@ -16,10 +16,11 @@ namespace PhotoMap.Mobile.Views
         private readonly MediaFile _photoFile;
         private Location _location;
 
-        public RestService DataStore => DependencyService.Get<RestService>();
+        private readonly RestService _restService;
 
         public SubmitPage(MediaFile photoFile)
         {
+            _restService = DependencyService.Get<RestService>();
             _photoFile = photoFile;
             InitializeComponent();
 
@@ -72,9 +73,9 @@ namespace PhotoMap.Mobile.Views
         {
             ArtUploader.IsEnabled = false;
             ArtUploader.Text = "Uploading...";
-            PhotoInsertModel model = new PhotoInsertModel { PhotoRowguid = Guid.NewGuid() };
-            await DataStore.PostAuthUserAsync();
-            var account = CloudStorageAccount.Parse(DataStore.User.BlobAzureKey);
+            PhotoModel model = new PhotoModel { PhotoRowguid = Guid.NewGuid() };
+            await _restService.PostAuthUserAsync();
+            var account = CloudStorageAccount.Parse(_restService.User.BlobAzureKey);
             var client = account.CreateCloudBlobClient();
             var container = client.GetContainerReference("photomapcontainer");
             await container.CreateIfNotExistsAsync();
@@ -86,8 +87,8 @@ namespace PhotoMap.Mobile.Views
             model.Description = DescText.Text;
             model.Longitude = _location.Longitude.ToString();
             model.PhotoPath = blockBlob.Uri.OriginalString;
-            model.UserRowguid = DataStore.User.UserROWGUID;
-            await DataStore.PostPhotoAsync(model);
+            model.UserRowguid = _restService.User.UserROWGUID;
+            await _restService.PostPhotoAsync(model);
             ArtUploader.Text = "Done!";
             await Navigation.PopAsync(true);
         }

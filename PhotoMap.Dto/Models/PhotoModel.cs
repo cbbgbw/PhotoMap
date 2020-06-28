@@ -2,7 +2,7 @@
 
 namespace PhotoMap.Dto.Models
 {
-    public class PhotoInsertModel
+    public class PhotoModel
     {
         public Guid PhotoRowguid { get; set; }
         public Guid? UserRowguid { get; set; }
