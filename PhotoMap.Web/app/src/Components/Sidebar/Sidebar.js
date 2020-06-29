@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import styles from "./Sidebar.module.scss";
 
-export default ({ isVisible, photo }) => (
+export default ({ isVisible, photo, hideSidebar }) => (
   <aside
     className={classNames(
       styles.sidebar,
@@ -22,8 +22,8 @@ export default ({ isVisible, photo }) => (
           }}
         ></div>
 
-        <h1 className={styles.backButton}>
-          <span>Go back </span>
+        <h1 className={styles.backButton} onClick={() => hideSidebar()}>
+          <span> Go back </span>
         </h1>
       </>
     ) : null}
