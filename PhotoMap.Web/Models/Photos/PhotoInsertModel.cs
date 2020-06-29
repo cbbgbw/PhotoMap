@@ -24,8 +24,8 @@ namespace PhotoMap.Backend.Models.Photos
         [Required]
         [StringLength(100, ErrorMessage = "Title can not be more than 100")]
         public string Title { get; set; }
-
         public string Description { get; set; }
+        public byte Visible { get; set; }
         public DateTime CreatedAt => DateTime.Now;
     }
 }

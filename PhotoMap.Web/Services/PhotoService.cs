@@ -29,7 +29,11 @@ namespace PhotoMap.Backend.Services
 
         public IEnumerable<Photo> GetAll()
         {
-            return _context.Photos;
+            var photos = _context.Photos
+                .Where(x => x.Visible == true)
+                .OrderByDescending(x => x.CreatedAt);
+
+            return photos;
         }
 
         public Photo GetById(Guid id)
@@ -55,6 +59,7 @@ namespace PhotoMap.Backend.Services
 
             return photo;
         }
+
         public void Update(Photo photoParam)
         {
             var photo = _context.Photos.Find(photoParam.PhotoRowguid);
@@ -90,7 +95,10 @@ namespace PhotoMap.Backend.Services
 
         public int Count()
         {
-            var countPhotos = _context.Photos.Count<Photo>();
+            var countPhotos = _context.Photos
+                .Where(x => x.Visible == true)
+                .Count<Photo>();
+
             return countPhotos;
         }
     }

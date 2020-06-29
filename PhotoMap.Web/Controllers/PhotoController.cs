@@ -55,7 +55,7 @@ namespace PhotoMap.Backend.Controllers
             return Ok(model);
         }
 
-        [HttpPost("insert")]
+        [HttpPost]
         public IActionResult Insert([FromBody]PhotoInsertModel model)
         {
             if (model.PhotoRowguid == Guid.Empty){
@@ -66,6 +66,7 @@ namespace PhotoMap.Backend.Controllers
             {
                 model.Latitude = model.Latitude.Replace(',', '.');
             }
+
             if (model.Longitude.Contains(','))
             {
                 model.Longitude = model.Longitude.Replace(',', '.');
@@ -79,6 +80,7 @@ namespace PhotoMap.Backend.Controllers
                 _photoService.Insert(photo);
                 return Ok(photo.PhotoRowguid);
             }
+
             catch(AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
