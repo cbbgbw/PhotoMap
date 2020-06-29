@@ -4,6 +4,6 @@
     {
         public static string ApiServiceUrl => "https://photomapapi.azurewebsites.net";
         public static string AccountAuthUrl => $"{ApiServiceUrl}/user/authenticate";
-        public static string PostPhotoUrl => $"{ApiServiceUrl}/photo";
+        public static string PhotoUrl => $"{ApiServiceUrl}/photo";
     }
 }

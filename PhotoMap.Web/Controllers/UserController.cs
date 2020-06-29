@@ -25,13 +25,13 @@ namespace PhotoMap.Controllers
     [Authorize]
     [Route("[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public UsersController(
+        public UserController(
             IUserService userService,
             IMapper mapper,
             IConfiguration configuration)
@@ -77,7 +77,7 @@ namespace PhotoMap.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("register")]
+        [HttpPost]
         public IActionResult Register([FromBody] UserRegisterModel model)
         {
             //Mapping model to entity

@@ -16,6 +16,7 @@ namespace PhotoMap.Backend.Entities
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public Boolean Visible { get; set; }
 
         public virtual User User { get; set; }
     }
