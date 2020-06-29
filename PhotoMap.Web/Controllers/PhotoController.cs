@@ -72,6 +72,7 @@ namespace PhotoMap.Backend.Controllers
                 model.Longitude = model.Longitude.Replace(',', '.');
             }
 
+            model.Visible = true;
             var photo = _mapper.Map<Photo>(model);
             
             try
