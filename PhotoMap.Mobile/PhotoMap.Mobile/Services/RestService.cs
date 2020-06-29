@@ -23,7 +23,7 @@ namespace PhotoMap.Mobile.Services
 
         public async Task<Guid> PostPhotoAsync(PhotoModel photo)
         {
-            var uri = new Uri(AppConstants.PostPhotoUrl);
+            var uri = new Uri(AppConstants.PhotoUrl);
 
             var json = Task.Factory.StartNew(() => JsonConvert.SerializeObject(photo)).Result;
             var content = new StringContent(json, Encoding.UTF8, "application/json");
