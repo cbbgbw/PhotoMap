@@ -8,7 +8,7 @@ const GetPhotos = async () => await API.get('photo', {
         }
     });
 
-const AuthUser = async ()  => await API.post('users/authenticate',{
+const AuthUser = async ()  => await API.post('user/authenticate',{
         Login: "adam.nowak",
         Password: "aaaa"
     }).then(respond => localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, respond.data.token));

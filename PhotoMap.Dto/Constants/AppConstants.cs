@@ -3,8 +3,7 @@
     public static class AppConstants
     {
         public static string ApiServiceUrl => "https://photomapapi.azurewebsites.net";
-        public static string AccountAuthUrl => $"{ApiServiceUrl}/users/authenticate";
-        public static string PostPhotoUrl => $"{ApiServiceUrl}/photo/insert";
-        public static string GetPhotosUrl => $"{ApiServiceUrl}/photo";
+        public static string AccountAuthUrl => $"{ApiServiceUrl}/user/authenticate";
+        public static string PhotoUrl => $"{ApiServiceUrl}/photo";
     }
 }

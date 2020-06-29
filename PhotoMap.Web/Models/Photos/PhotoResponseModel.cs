@@ -14,5 +14,7 @@ namespace PhotoMap.Backend.Models.Photos
         public string PhotoPath { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public Boolean Visible { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
