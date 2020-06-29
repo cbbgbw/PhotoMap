@@ -1,0 +1,30 @@
+.Map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.pinIcon {
+  width: 100px;
+  height: auto;
+}
+
+.Logout {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 28px;
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke: 1px white;
+  font-weight: 540;
+  z-index: 999999;
+  transition: font-size 0.5s;
+  cursor: pointer;
+  font-size: 30px;
+
+  &:hover {
+    font-size: 50px;
+  }
+}

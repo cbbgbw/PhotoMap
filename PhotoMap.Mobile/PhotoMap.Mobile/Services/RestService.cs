@@ -30,8 +30,7 @@ namespace PhotoMap.Mobile.Services
 
             var response = await client.PostAsync(uri, content);
             string respondContent = await response.Content.ReadAsStringAsync();
-
-            return Guid.Parse(respondContent);
+            return Guid.Parse(JsonConvert.DeserializeObject<string>(respondContent));
         }
 
         /// <summary>

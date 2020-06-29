@@ -7,8 +7,8 @@
   right: 0;
   background: white;
   height: 100%;
-  padding: 30px;
   overflow: auto;
+  padding: 0 30px;
 
   h1 {
     margin-bottom: 30px;
@@ -21,10 +21,11 @@
   &_photoContainer {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 60%;
     position: relative;
     background-size: contain;
     background-repeat: no-repeat;
+    cursor: pointer;
   }
 
   &_visible {
@@ -33,4 +34,5 @@
 }
 
 .backButton {
+  cursor: pointer;
 }
