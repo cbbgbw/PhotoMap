@@ -74,7 +74,7 @@ namespace PhotoMap.Mobile.Views
             ArtUploader.IsEnabled = false;
             ArtUploader.Text = "Uploading...";
             PhotoModel model = new PhotoModel { PhotoRowguid = Guid.NewGuid() };
-            await _restService.PostAuthUserAsync();
+            //await _restService.PostAuthUserAsync();
             var account = CloudStorageAccount.Parse(_restService.User.BlobAzureKey);
             var client = account.CreateCloudBlobClient();
             var container = client.GetContainerReference("photomapcontainer");

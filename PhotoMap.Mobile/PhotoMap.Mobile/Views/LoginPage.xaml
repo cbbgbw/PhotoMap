@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PhotoMap.Mobile.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
+            <BoxView HeightRequest="60"/>
+            <!--<Image HorizontalOptions="Center" WidthRequest="300" Source="maco.jpg"/>-->
+            <Frame BackgroundColor="#bdeaf9" HasShadow="False">
+                <StackLayout Orientation="Vertical" Spacing="10">
+                    <Entry x:Name="Login" Text="{Binding Login}" Placeholder="Login"   
+                           PlaceholderColor="Black" HeightRequest="55"                           TextColor="Black"/>
+                    <Entry x:Name="Password" Text="{Binding Password}" Placeholder="******"   
+                           PlaceholderColor="Black" HeightRequest="55"   
+                           IsPassword="True"  
+                           TextColor="White"/>
+                </StackLayout>
+            </Frame>
+            <Button Command="{Binding SubmitCommand}" x:Name="loginBtn"  Text="Login" TextColor="White" IsEnabled="True"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#088da5" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

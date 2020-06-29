@@ -23,7 +23,7 @@ namespace PhotoMap.Mobile.Services
 
         public async Task<Guid> PostPhotoAsync(PhotoModel photo)
         {
-            var uri = new Uri(AppConstants.PostPhotoUrl);
+            var uri = new Uri(AppConstants.PhotoUrl);
 
             var json = Task.Factory.StartNew(() => JsonConvert.SerializeObject(photo)).Result;
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -38,10 +38,10 @@ namespace PhotoMap.Mobile.Services
         /// https://docs.microsoft.com/pl-pl/xamarin/xamarin-forms/data-cloud/web-services/rest
         /// </summary>
         /// <returns></returns>
-        public async Task PostAuthUserAsync()
+        public async Task PostAuthUserAsync(string login, string password)
         {
             var uri = new Uri(AppConstants.AccountAuthUrl);
-            var authUser = new User("adam.nowak", "aaaa");
+            var authUser = new User(login, password);
             var json = Task.Factory.StartNew(() => JsonConvert.SerializeObject(authUser)).Result;
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 

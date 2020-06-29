@@ -15,7 +15,18 @@ namespace PhotoMap.Mobile
             InitializeComponent();
 
             DependencyService.Register<RestService>();
+            //if (DependencyService.Get<RestService>().client.DefaultRequestHeaders.Authorization == null)
+            //{
+            //    MainPage = new LoginPage();
+            //}
+            //else
+            //{
+            //    MainPage = new MainPage();
+            //}
+
             MainPage = new MainPage();
+
+
         }
 
         protected override void OnStart()
